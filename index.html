@@ -2,20 +2,111 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dear Diary ♡</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <main class="container">
-        <h1>Welcome to My Website!</h1>
-        <p>My website is connected to GitHub and Vercel.</p>
-        <button id="helloButton">Click Me</button>
-        <p id="message"></p>
+  <div class="app">
+    <aside class="sidebar">
+      <h2>🌷 dear diary</h2>
+      <p class="subtitle">your little corner</p>
+
+      <nav>
+        <button class="nav active" data-view="home">♡ My Journal</button>
+        <button class="nav" data-view="entries">📖 All Entries</button>
+        <button class="nav" data-view="favorites">♥ Favorites</button>
+      </nav>
+
+      <div class="quote">
+        <span>✧ A little reminder</span>
+        <p>You deserve the same love you so freely give to others.</p>
+      </div>
+    </aside>
+
+    <main>
+      <header>
+        <span>My space / <b id="page-name">My Journal</b></span>
+        <span id="today"></span>
+      </header>
+
+      <section class="welcome">
+        <p class="eyebrow">WELCOME TO YOUR SAFE SPACE ✿</p>
+        <h1>A little space<br>just for <em>you.</em></h1>
+        <p>Write your heart out. Celebrate little things. Just be.</p>
+      </section>
+
+      <section class="stats">
+        <div class="stat">
+          <span>♡</span>
+          <h3 id="total">0</h3>
+          <p>Moments saved</p>
+        </div>
+        <div class="stat">
+          <span>🌷</span>
+          <h3 id="favorites-count">0</h3>
+          <p>Favorite memories</p>
+        </div>
+      </section>
+
+      <section id="editor-section">
+        <h2>Today's pages ✧</h2>
+
+        <form id="journal-form" class="paper">
+          <input type="text" id="title" placeholder="Give this moment a name..." maxlength="100">
+
+          <label for="mood">Today I'm feeling...</label>
+          <select id="mood">
+            <option value="☁️ Peaceful">☁️ Peaceful</option>
+            <option value="🌷 Happy">🌷 Happy</option>
+            <option value="🌙 Tired">🌙 Tired</option>
+            <option value="🫧 Anxious">🫧 Anxious</option>
+            <option value="💗 Grateful">💗 Grateful</option>
+          </select>
+
+          <textarea id="body" rows="8" placeholder="Dear diary, today I feel..." required></textarea>
+
+          <div class="form-footer">
+            <span id="word-count">0 words</span>
+            <div>
+              <button type="button" class="btn light" id="clear">
+                Clear
+              </button>
+              <button type="submit" class="btn primary">
+                ♡ Save entry
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="memories">
+        <div class="section-head">
+          <h2 id="list-title">Recent memories ♡</h2>
+          <button class="text-button" id="export">Export journal ↓</button>
+        </div>
+        <div id="entries-list"></div>
+      </section>
+
+      <section class="prompt">
+        <span>✧ A GENTLE WRITING PROMPT</span>
+        <h3 id="prompt-text">
+          What is one little thing that made you smile today?
+        </h3>
+        <button class="btn primary" id="use-prompt">Write about this ↗</button>
+        <button class="text-button" id="next-prompt">
+          Give me another prompt ↻
+        </button>
+      </section>
+
+      <footer>Made with ♡ and a little bit of pink.</footer>
     </main>
+  </div>
+
+  <div id="toast" role="status"></div>
+  <script src="script.js"></script>
 </body>
 
 </html>

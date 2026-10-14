@@ -4,109 +4,155 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffe5ec">
   <title>Dear Diary ♡</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 
 <body>
   <div class="app">
-    <aside class="sidebar">
-      <h2>🌷 dear diary</h2>
-      <p class="subtitle">your little corner</p>
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" data-view="home">
+        <span class="brand-icon">d♥</span>
+        <span>dear diary<small>your little corner</small></span>
+      </a>
 
-      <nav>
-        <button class="nav active" data-view="home">♡ My Journal</button>
-        <button class="nav" data-view="entries">📖 All Entries</button>
-        <button class="nav" data-view="favorites">♥ Favorites</button>
+      <p class="side-label">YOUR SPACE</p>
+      <nav class="navigation">
+        <button class="nav-item active" data-view="home">⌂ My journal</button>
+        <button class="nav-item" data-view="entries">▤ All entries <span id="entry-count">0</span></button>
+        <button class="nav-item" data-view="favorites">♡ Favorites</button>
       </nav>
 
-      <div class="quote">
-        <span>✧ A little reminder</span>
+      <p class="side-label month-label">THIS MONTH</p>
+      <div class="calendar" id="calendar"></div>
+
+      <div class="sidebar-note">
+        <span>✦ A LITTLE REMINDER</span>
         <p>You deserve the same love you so freely give to others.</p>
       </div>
+
+      <button id="theme-toggle" class="theme-button">☼ Toggle cozy theme</button>
     </aside>
 
-    <main>
-      <header>
-        <span>My space / <b id="page-name">My Journal</b></span>
-        <span id="today"></span>
+    <main class="main-content">
+      <header class="topbar">
+        <button id="menu-toggle" class="menu-button" aria-label="Open menu">☰</button>
+        <span>My space / <strong id="page-name">My journal</strong></span>
+        <span id="today-label" class="today-label"></span>
       </header>
 
       <section class="welcome">
-        <p class="eyebrow">WELCOME TO YOUR SAFE SPACE ✿</p>
-        <h1>A little space<br>just for <em>you.</em></h1>
-        <p>Write your heart out. Celebrate little things. Just be.</p>
+        <div>
+          <p class="eyebrow">♡ YOUR OWN SAFE SPACE</p>
+          <h1>A little space<br>just for <em>you.</em></h1>
+          <p class="muted">Untangle your thoughts, celebrate little things, and just be.</p>
+        </div>
+        <div class="welcome-art" aria-hidden="true">🌷<br>♡</div>
       </section>
 
       <section class="stats">
-        <div class="stat">
+        <div class="stat-card">
           <span>♡</span>
-          <h3 id="total">0</h3>
-          <p>Moments saved</p>
+          <div><strong id="total-entries">0</strong><small>moments saved</small></div>
         </div>
-        <div class="stat">
-          <span>🌷</span>
-          <h3 id="favorites-count">0</h3>
-          <p>Favorite memories</p>
+        <div class="stat-card">
+          <span>✿</span>
+          <div><strong id="total-words">0</strong><small>words written</small></div>
+        </div>
+        <div class="stat-card">
+          <span>♥</span>
+          <div><strong id="total-favorites">0</strong><small>favorite memories</small></div>
         </div>
       </section>
 
-      <section id="editor-section">
-        <h2>Today's pages ✧</h2>
-
-        <form id="journal-form" class="paper">
-          <input type="text" id="title" placeholder="Give this moment a name..." maxlength="100">
-
-          <label for="mood">Today I'm feeling...</label>
-          <select id="mood">
-            <option value="☁️ Peaceful">☁️ Peaceful</option>
-            <option value="🌷 Happy">🌷 Happy</option>
-            <option value="🌙 Tired">🌙 Tired</option>
-            <option value="🫧 Anxious">🫧 Anxious</option>
-            <option value="💗 Grateful">💗 Grateful</option>
-          </select>
-
-          <textarea id="body" rows="8" placeholder="Dear diary, today I feel..." required></textarea>
-
-          <div class="form-footer">
-            <span id="word-count">0 words</span>
+      <div class="content-grid">
+        <section class="editor-column">
+          <div class="section-heading">
             <div>
-              <button type="button" class="btn light" id="clear">
-                Clear
-              </button>
-              <button type="submit" class="btn primary">
-                ♡ Save entry
-              </button>
+              <p class="eyebrow">LET IT OUT</p>
+              <h2 id="editor-heading">Today's pages ✧</h2>
             </div>
+            <span id="entry-date" class="muted"></span>
           </div>
-        </form>
-      </section>
 
-      <section class="memories">
-        <div class="section-head">
-          <h2 id="list-title">Recent memories ♡</h2>
-          <button class="text-button" id="export">Export journal ↓</button>
-        </div>
-        <div id="entries-list"></div>
-      </section>
+          <form id="entry-form" class="editor">
+            <div class="editor-bar">● <span>●</span> ● <small> A NOTE TO MYSELF</small></div>
 
-      <section class="prompt">
-        <span>✧ A GENTLE WRITING PROMPT</span>
-        <h3 id="prompt-text">
-          What is one little thing that made you smile today?
-        </h3>
-        <button class="btn primary" id="use-prompt">Write about this ↗</button>
-        <button class="text-button" id="next-prompt">
-          Give me another prompt ↻
-        </button>
-      </section>
+            <input id="entry-title" maxlength="100" placeholder="Give this moment a name…" aria-label="Entry title">
 
-      <footer>Made with ♡ and a little bit of pink.</footer>
+            <div class="mood-section">
+              <span>Today I'm feeling</span>
+              <div class="moods">
+                <button type="button" class="mood active" data-mood="peaceful">☁️ Peaceful</button>
+                <button type="button" class="mood" data-mood="happy">🌷 Happy</button>
+                <button type="button" class="mood" data-mood="tired">🌙 Tired</button>
+                <button type="button" class="mood" data-mood="anxious">🫧 Anxious</button>
+                <button type="button" class="mood" data-mood="grateful">💗 Grateful</button>
+              </div>
+            </div>
+
+            <textarea id="entry-body" rows="8" required
+              placeholder="Start wherever you are. There is no right or wrong way to feel…"
+              aria-label="Journal entry"></textarea>
+
+            <div class="editor-footer">
+              <span id="word-count">0 words</span>
+              <div class="editor-actions">
+                <button type="button" id="clear-button" class="button secondary">Clear</button>
+                <button type="submit" class="button primary">♡ Save this moment</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="section-heading recent-heading">
+            <div>
+              <p class="eyebrow">YOUR LITTLE TIME CAPSULE</p>
+              <h2 id="list-heading">Recent memories ♡</h2>
+            </div>
+            <button id="show-all" class="text-button">View all ↗</button>
+          </div>
+
+          <div id="entries-list" class="entries-list"></div>
+        </section>
+
+        <aside class="right-column">
+          <section class="prompt-card">
+            <p class="eyebrow">✳ TODAY'S GENTLE PROMPT</p>
+            <div class="prompt-art">☁️ 🌷 ♡</div>
+            <h3 id="prompt-text">What is one small thing that made you smile recently?</h3>
+            <p class="muted">No pressure to be profound. The little things count, too.</p>
+            <button id="use-prompt" class="button primary full-width">Write about this ↗</button>
+            <button id="next-prompt" class="text-button full-width">↻ Give me another prompt</button>
+          </section>
+
+          <section class="gratitude-card">
+            <p class="eyebrow">A MOMENT OF GRATITUDE</p>
+            <h3>Three little good things</h3>
+            <p class="muted">Even on hard days, there can be soft places to land.</p>
+            <form id="gratitude-form">
+              <input id="good-one" placeholder="Something I saw…" aria-label="Something I saw">
+              <input id="good-two" placeholder="Something I felt…" aria-label="Something I felt">
+              <input id="good-three" placeholder="Something just for me…" aria-label="Something just for me">
+              <button class="button secondary full-width" type="submit">Keep these close ♡</button>
+            </form>
+            <small id="gratitude-status">A tiny practice, a little more light.</small>
+          </section>
+
+          <section class="quote-card">
+            <span>“</span>
+            <p>Be gentle with yourself. You're doing the best you can.</p>
+            <small>YOUR DAILY REMINDER</small>
+          </section>
+        </aside>
+      </div>
+
+      <footer>Made with a little love <span>♥</span> and room to grow ✿</footer>
     </main>
   </div>
 
-  <div id="toast" role="status"></div>
-  <script src="script.js"></script>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 
 </html>
